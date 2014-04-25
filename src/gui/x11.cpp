@@ -131,6 +131,14 @@ GuiCalibratorX11::GuiCalibratorX11(Calibrator* calibrator0)
     gc = XCreateGC(display, win, 0, NULL);
     XSetFont(display, gc, font_info->fid);
 
+    // for easy identification
+    XTextProperty windowName;
+    windowName.value    = (unsigned char *) "Xinput_Calibrator";
+    windowName.encoding = XA_STRING;
+    windowName.format   = 8;
+    windowName.nitems   = strlen((char *) windowName.value);
+    XSetWMName(display, win, &windowName);
+
     // Setup timer for animation
 #ifdef HAVE_TIMERFD
     struct itimerspec timer;
